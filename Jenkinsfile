@@ -71,11 +71,9 @@ pipeline {
         stage('Validate') {
             steps {
                 // terraform validate does NOT need credentials
-                {
                     sh '''
                     terraform validate
                     '''
-                }
             }
         }
 
@@ -121,35 +119,35 @@ pipeline {
         }
     }
 
-    stage('Optional Destroy') {
-        steps {
-            script {
-                def destroyChoice = input(
-                    message: 'Do you want to run terraform destroy?',
-                    ok: 'Submit',
-                    parameters: [
-                        choice(
-                            name: 'DESTROY',
-                            choices: ['no', 'yes'],
-                            description: 'Select yes to destroy resources'
-                        )
-                    ]
-                )
+        stage('Optional Destroy') {
+            steps {
+                script {
+                    def destroyChoice = input(
+                        message: 'Do you want to run terraform destroy?',
+                        ok: 'Submit',
+                        parameters: [
+                            choice(
+                                name: 'DESTROY',
+                                choices: ['no', 'yes'],
+                                description: 'Select yes to destroy resources'
+                            )
+                        ]
+                    )
 
-                if (destroyChoice == 'yes') {
-                    withCredentials([[
-                        $class: 'AmazonWebServicesCredentialsBinding',
-                        credentialsId: 'AWS-Pipeline'
-                    ]]) {
-                        sh 'terraform destroy -auto-approve'
+                    if (destroyChoice == 'yes') {
+                        withCredentials([[
+                            $class: 'AmazonWebServicesCredentialsBinding',
+                            credentialsId: 'AWS-Pipeline'
+                        ]]) {
+                            sh 'terraform destroy -auto-approve'
+                        }
+                    } else {
+                        echo "Skipping destroy"
                     }
-                } else {
-                    echo "Skipping destroy"
-                }
+                    }
                 }
             }
         }
-    }
     post {
         success {
             echo 'Terraform deployment completed successfully!'
