@@ -68,6 +68,28 @@ pipeline {
             }
         }
 
+        stage('Validate') {
+            steps {
+                // terraform validate does NOT need credentials
+                {
+                    sh '''
+                    terraform validate
+                    '''
+                }
+            }
+        }
+
+        stage('Format Terraform'){
+            steps {
+                // terraform formate does NOT need credentials
+                {
+                    sh '''
+                    terraform fmt
+                    '''
+                }
+            }
+        }
+
         stage('Plan Terraform') {
             steps {
                 withCredentials([[
