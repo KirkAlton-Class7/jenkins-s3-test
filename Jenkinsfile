@@ -80,7 +80,6 @@ pipeline {
         stage('Format Terraform') {
             steps {
                 // terraform formate does NOT need credentials
-                {
                     sh '''
                     terraform fmt
                     '''
