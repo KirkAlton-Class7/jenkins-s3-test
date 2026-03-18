@@ -57,7 +57,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'AWS_SECRET_ACCESS_KEY'
+                    credentialsId: 'JenkinsUser01AWS'
                 ]]) {
                     sh '''
                     export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
