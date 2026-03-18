@@ -71,19 +71,18 @@ pipeline {
         stage('Validate') {
             steps {
                 // terraform validate does NOT need credentials
-                    sh '''
-                    terraform validate
-                    '''
+                sh '''
+                terraform validate
+                '''
             }
         }
 
         stage('Format Terraform') {
             steps {
                 // terraform formate does NOT need credentials
-                    sh '''
-                    terraform fmt
-                    '''
-                }
+                sh '''
+                terraform fmt
+                '''
             }
         }
 
@@ -101,6 +100,7 @@ pipeline {
                 }
             }
         }
+
         stage('Apply Terraform') {
             steps {
                 input message: "Approve Terraform Apply?", ok: "Deploy"
@@ -116,7 +116,6 @@ pipeline {
                 }
             }
         }
-    }
 
         stage('Optional Destroy') {
             steps {
@@ -143,9 +142,10 @@ pipeline {
                     } else {
                         echo "Skipping destroy"
                     }
-                    }
                 }
             }
+        }
+    }
 
     post {
         success {
@@ -155,3 +155,4 @@ pipeline {
             echo 'Terraform deployment failed!'
         }
     }
+}
