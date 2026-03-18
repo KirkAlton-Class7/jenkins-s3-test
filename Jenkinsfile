@@ -9,7 +9,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'JenkinsUser01AWS' // must be changed before runtime to match the Jenkins credential
+                    credentialsId: 'AWS-Pipeline' // must be changed before runtime to match the Jenkins credential
                 ]]) {
                     sh '''
                     echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
@@ -57,7 +57,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'JenkinsUser01AWS'
+                    credentialsId: 'AWS-Pipeline'
                 ]]) {
                     sh '''
                     export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
@@ -72,7 +72,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'AWS_SECRET_ACCESS_KEY'
+                    credentialsId: 'AWS-Pipeline'
                 ]]) {
                     sh '''
                     export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
