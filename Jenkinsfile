@@ -79,7 +79,7 @@ pipeline {
             }
         }
 
-        stage('Format Terraform'){
+        stage('Format Terraform') {
             steps {
                 // terraform formate does NOT need credentials
                 {
