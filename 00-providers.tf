@@ -14,6 +14,10 @@ terraform {
     local = {
       source = "hashicorp/local"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.9.0"
+    }
   }
 }
 
@@ -22,4 +26,4 @@ terraform {
 # ----------------------------------------------------------------
 provider "aws" {
   region = "us-west-2"
-  }
+}
